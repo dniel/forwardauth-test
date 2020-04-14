@@ -1,12 +1,4 @@
 if: tag IS blank
-jdk:
-  - oraclejdk12
-language: java
-install: true
-cache:
-  directories:
-    - "$HOME/.m2/repository"
-    - "$HOME/.sonar/cache"
 services:
   - docker
 before_script:
