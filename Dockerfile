@@ -4,8 +4,7 @@ FROM loadimpact/k6
 USER root
 
 # copy everything
-COPY /scripts /scripts
-COPY /tests /tests
+COPY /build/app.bundle.js /app.bundle.js
 
 ENTRYPOINT [ "k6" ]
 CMD [ "help" ]
