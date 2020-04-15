@@ -1,2 +1,4 @@
 # ignore IDEA project files
 .idea
+/node_modules/
+/dist/
