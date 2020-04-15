@@ -24,12 +24,7 @@ export function whoami(token) {
 // time when we're running a functional test (1 VU, 1 iteration).
 export default function () {
     if (access_token === null) {
-        group("login", function () {
-            var res = login(username, password);
-            check(res, {
-                "status is 200": (res) => res.status === 200
-            });
-        });
+        var res = login(username, password);
     }
 
     // Below is the actual test case for the /tokens API endpoint
