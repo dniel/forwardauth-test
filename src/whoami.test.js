@@ -7,8 +7,8 @@ import { login } from "./login.test.js";
 export {options};
 
 // test credentials, should be fetched from secrets instead in Amazon Secrets manager.
-let username = "user";
-let password = "passwd";
+let username = __ENV.CLIENT_ID;
+let password = __ENV.CLIENT_SECRET;
 
 // Access token to call API.
 let access_token = null;

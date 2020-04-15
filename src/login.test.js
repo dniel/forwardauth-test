@@ -5,8 +5,8 @@ import {myTrend, options, thinktime1, urlbase} from "./common.js";
 export {options};
 
 // test credentials, should be fetched from secrets instead in Amazon Secrets manager.
-let username = "user";
-let password = "passwd";
+let username = __ENV.CLIENT_ID;
+let password = __ENV.CLIENT_SECRET;
 
 // We export this function as other test cases might want to use it to authenticate
 export function login(username, password) {

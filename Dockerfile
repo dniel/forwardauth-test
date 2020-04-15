@@ -1,7 +1,9 @@
 FROM loadimpact/k6
 
-# default baseurl to use if none specified on the docker commandline.
+# default environment variables used if not overriden by commandline parameters
 ENV BASEURL=httpbin.org
+ENV CLIENT_ID=user
+ENV CLIENT_SECRET=passwd
 
 # run as root user
 USER root
