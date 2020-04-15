@@ -2,15 +2,14 @@ var path = require('path');
 var webpack = require('webpack');
 module.exports = {
     mode: "production",
-    entry: './src/whoami.test.js',
-//    entry: [
-//      loginTest:'./src/login.test.js',
-//      signup: './src/signup.test.js',
-//    ],
+    entry: {
+        login: './src/login.test.js',
+        whoami: './src/whoami.test.js'
+    },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'dist'),
         libraryTarget: "commonjs",
-        filename: 'app.bundle.js'
+        filename: '[name].js',
     },
     module: {
         rules: [
