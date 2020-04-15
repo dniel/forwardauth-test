@@ -1,7 +1,10 @@
 if: tag IS blank
 language: node_js
 node_js:
-  - "node"
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
 services:
   - docker
 before_script:
@@ -10,6 +13,8 @@ before_script:
   - export COMMIT_TIME=$(git log -1 --pretty=format:%ct|date +"%m%d%Y-%H%M")
   - export APP_VERSION=$COMMIT_TIME-$TRAVIS_TAG
   - echo "$TRAVIS_TAG $TRAVIS_COMMIT $BRANCH $COMMIT_TIME"
+script:
+  - npm run bundle
 after_success:
   - docker build -t dniel/forwardauth-test .
 deploy:
