@@ -16,6 +16,7 @@ function whoamiUnauthenticated() {
     let res = http.get(url, {follow: false, redirects: 0});
     check(res, {
         "status is 307": (r) => r.status === 307,
+        "should redirect to Auth0 login page": (r) => r.headers.Location.startsWith("https://dniel.eu.auth0.com/authorize")
     });
 }
 
