@@ -28,8 +28,7 @@ function whoamiAuthenticated() {
     const options = {
         headers: {
             "Authorization": "Basic " + encoding.b64encode(`${clientId}:${clientSecret}`)
-        },
-        follow: false, redirects: 0
+        }
     };
 
     // test url call.
@@ -37,6 +36,7 @@ function whoamiAuthenticated() {
 
     check(res, {
         "status is 200": (r) => r.status === 200,
+        "has JWT Bearer Token": (r) => r.body.match("Authorization: Bearer ([a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+)")
     });
 }
 
