@@ -15,8 +15,12 @@ export let options = {
 // Please see note below about this metric and the thresholds set in 'options' above
 export let myTrend = new Trend("transaction_time");
 
-// Base URL that we prepend to all URLs we use
-export let urlbase = `${__ENV.BASEURL}`;
+// baseHostname that we prepend to all URLs we use
+export let baseFqdn = `${__ENV.BASE_FQDN}`;
+
+// credentials
+export let clientId = `${__ENV.CLIENT_ID}`;
+export let clientSecret = `${__ENV.CLIENT_SECRET}`;
 
 // Think times, to slow down execution somewhat
 export let thinktime1 = 0.1;

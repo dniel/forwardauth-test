@@ -3,8 +3,8 @@ var webpack = require('webpack');
 module.exports = {
     mode: "production",
     entry: {
-        login: './src/login.test.js',
-        whoami: './src/whoami.test.js'
+        whoami: './src/whoami.test.js',
+        main: './src/main.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
