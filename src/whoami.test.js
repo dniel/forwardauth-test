@@ -6,17 +6,28 @@ import {baseFqdn, options, thinktime2} from "./common.js";
 export {options};
 
 /**
- * test that the whoami service is protected.
+ * Test that the whoami service is protected.
+ * TODO: add check for correct redirect url.
  */
 function whoamiUnauthenticated() {
     const url = `https://whoami.${baseFqdn}`
     let res = http.get(url, {follow: false, redirects: 0});
     check(res, {
-        "status is 307, redirected for login": (r) => r.status === 307,
+        "status is 307": (r) => r.status === 307,
+    });
+}
+/**
+ * Test that the whoami service is protected.
+ */
+function whoamiAuthenticated() {
+    const url = `https://whoami.${baseFqdn}`
+    let res = http.get(url, {follow: false, redirects: 0});
+    check(res, {
+        "status is 200": (r) => r.status === 200,
     });
 }
 
 export default function () {
     group("Whoami: Unauthenticated", whoamiUnauthenticated);
-    sleep(thinktime2);
+    group("Whoami: Authenticated", whoamiAuthenticated);
 };
