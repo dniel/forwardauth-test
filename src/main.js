@@ -1,5 +1,6 @@
 import {options} from "./common.js";
 import whoamiTest from "./whoami.test.js";
+import postsTest from "./posts.test.js";
 
 export {options};
 
@@ -8,4 +9,5 @@ export {options};
  */
 export default function () {
     whoamiTest()
+    postsTest()
 };

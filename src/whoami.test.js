@@ -7,9 +7,17 @@ import {baseFqdn, clientId, clientSecret, options} from "./common.js";
 export {options};
 
 /**
+ * Main Tests start function that will be called from main.js
+ */
+export default function () {
+    group("Whoami: Unauthenticated", whoamiUnauthenticated);
+    group("Whoami: Authenticated", whoamiAuthenticated);
+};
+
+
+/**
  * Test that the whoami service is protected
  * without credentials.
- * TODO: add check for correct redirect url.
  */
 function whoamiUnauthenticated() {
     const url = `https://whoami.${baseFqdn}`
@@ -40,8 +48,3 @@ function whoamiAuthenticated() {
         "has JWT Bearer Token": (r) => r.body.match("Authorization: Bearer ([a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+)")
     });
 }
-
-export default function () {
-    group("Whoami: Unauthenticated", whoamiUnauthenticated);
-    group("Whoami: Authenticated", whoamiAuthenticated);
-};
