@@ -1,7 +1,7 @@
 import http from "k6/http";
 import encoding from "k6/encoding";
 import {check, group} from "k6";
-import {baseFqdn, clientId, clientSecret, options} from "./common.js";
+import {baseFqdn, clientId, clientSecret, options, whatIsIt} from "./common.js";
 
 // Export options object so k6 can access it
 export {options};
@@ -23,6 +23,7 @@ export default function () {
     group("API Posts: Get One Post", postsOnePost);
     group("API Posts: Info", postsHasInfoEndpoint);
     group("API Posts: Health", postsHasHealthEndpoint);
+    group("API Posts: Config", postsHasConfigEndpoint);
 };
 
 
@@ -74,6 +75,7 @@ function postsAllPosts() {
         "content has entities": (res) => JSON.parse(res.body).hasOwnProperty('entities'),
         "content has properties": (res) => JSON.parse(res.body).hasOwnProperty('properties'),
         "content has class": (res) => JSON.parse(res.body).hasOwnProperty('class'),
+        "response is json object": (r) => whatIsIt(r.json()) === "Object"
     });
 }
 
@@ -94,6 +96,7 @@ function postsOnePost() {
         "content type is application/vnd.siren+json": (r) => r.headers['Content-Type'] === "application/vnd.siren+json",
         "content has properties": (res) => JSON.parse(res.body).hasOwnProperty('properties'),
         "content has class": (res) => JSON.parse(res.body).hasOwnProperty('class'),
+        "response is json object": (r) => whatIsIt(r.json()) === "Object"
     });
 }
 
@@ -114,7 +117,8 @@ function postsHasHealthEndpoint() {
     check(res, {
         "status is 200": (r) => r.status === 200,
         "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
-        "content is UP": (r) => r.json().status === "UP"
+        "content is UP": (r) => r.json().status === "UP",
+        "response is json object": (r) => whatIsIt(r.json()) === "Object"
     });
 }
 
@@ -129,12 +133,12 @@ function postsHasInfoEndpoint() {
 
     // when calling the url
     let res = http.get(url, httpOptions);
-    console.log(res.body)
 
     // then
     check(res, {
         "status is 200": (r) => r.status === 200,
-        "content type is application/json": (r) => r.headers['Content-Type'] === "application/json"
+        "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
+        "response is json object": (r) => whatIsIt(r.json()) === "Object"
     });
 }
 
@@ -154,6 +158,7 @@ function postsHasConfigEndpoint() {
     // then
     check(res, {
         "status is 200": (r) => r.status === 200,
-        "content type is application/json": (r) => r.headers['Content-Type'] === "application/json"
+        "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
+        "response is json object": (r) => whatIsIt(r.json()) === "Object"
     });
 }

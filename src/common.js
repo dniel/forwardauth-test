@@ -24,3 +24,28 @@ export let clientSecret = `${__ENV.CLIENT_SECRET}`;
 // Think times, to slow down execution somewhat
 export let thinktime1 = 0.1;
 export let thinktime2 = 2.0;
+
+const stringConstructor = "test".constructor;
+const arrayConstructor = [].constructor;
+const objectConstructor = ({}).constructor;
+
+export function whatIsIt(object) {
+    if (object === null) {
+        return "null";
+    }
+    if (object === undefined) {
+        return "undefined";
+    }
+    if (object.constructor === stringConstructor) {
+        return "String";
+    }
+    if (object.constructor === arrayConstructor) {
+        return "Array";
+    }
+    if (object.constructor === objectConstructor) {
+        return "Object";
+    }
+    {
+        return "don't know";
+    }
+}
