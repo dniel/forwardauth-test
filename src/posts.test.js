@@ -153,7 +153,6 @@ function postsHasConfigEndpoint() {
 
     // when calling the url
     let res = http.get(url, httpOptions);
-    console.log(res.body)
 
     // then
     check(res, {
