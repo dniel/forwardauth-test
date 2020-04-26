@@ -137,3 +137,23 @@ function postsHasInfoEndpoint() {
         "content type is application/json": (r) => r.headers['Content-Type'] === "application/json"
     });
 }
+
+/**
+ * Test that the Posts service is available
+ * with credentials
+ * TODO: Should have been siren contenttype.
+ */
+function postsHasConfigEndpoint() {
+    // given url to posts
+    const url = `https://api-posts.${baseFqdn}/system/config`
+
+    // when calling the url
+    let res = http.get(url, httpOptions);
+    console.log(res.body)
+
+    // then
+    check(res, {
+        "status is 200": (r) => r.status === 200,
+        "content type is application/json": (r) => r.headers['Content-Type'] === "application/json"
+    });
+}
