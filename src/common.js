@@ -1,10 +1,10 @@
-import {Trend} from "k6/metrics";
+import {Counter, Trend} from "k6/metrics";
 
 // Default runtime options
 export let options = {
     vus: 1,
     thresholds: {
-        errors: ["rate<0.1"], // <10% errors
+        checks: ["rate == 1.0"], // all checks should pass.
         transaction_time: ["avg<500"], // Require transaction_time's average to be <1000ms
         http_req_duration: ["avg<1000"], // Require http_req_duration's average to be <2000ms
     }

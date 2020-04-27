@@ -54,7 +54,7 @@ function postsAuthenticated() {
     // then
     check(res, {
         "status is 200": (r) => r.status === 200,
-    });
+    })
 }
 
 /**
@@ -76,7 +76,7 @@ function postsAllPosts() {
         "content has properties": (res) => JSON.parse(res.body).hasOwnProperty('properties'),
         "content has class": (res) => JSON.parse(res.body).hasOwnProperty('class'),
         "response is json object": (r) => whatIsIt(r.json()) === "Object"
-    });
+    })
 }
 
 /**
@@ -97,7 +97,7 @@ function postsOnePost() {
         "content has properties": (res) => JSON.parse(res.body).hasOwnProperty('properties'),
         "content has class": (res) => JSON.parse(res.body).hasOwnProperty('class'),
         "response is json object": (r) => whatIsIt(r.json()) === "Object"
-    });
+    })
 }
 
 /**
@@ -119,7 +119,7 @@ function postsHasHealthEndpoint() {
         "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
         "content is UP": (r) => r.json().status === "UP",
         "response is json object": (r) => whatIsIt(r.json()) === "Object"
-    });
+    })
 }
 
 /**
@@ -139,7 +139,7 @@ function postsHasInfoEndpoint() {
         "status is 200": (r) => r.status === 200,
         "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
         "response is json object": (r) => whatIsIt(r.json()) === "Object"
-    });
+    })
 }
 
 /**
@@ -159,5 +159,5 @@ function postsHasConfigEndpoint() {
         "status is 200": (r) => r.status === 200,
         "content type is application/json": (r) => r.headers['Content-Type'] === "application/json",
         "response is json object": (r) => whatIsIt(r.json()) === "Object"
-    });
+    })
 }

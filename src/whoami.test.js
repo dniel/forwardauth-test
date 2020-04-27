@@ -25,7 +25,7 @@ function whoamiUnauthenticated() {
     check(res, {
         "status is 307": (r) => r.status === 307,
         "should redirect to Auth0 login page": (r) => r.headers.Location.startsWith("https://dniel.eu.auth0.com/authorize")
-    });
+    })
 }
 
 /**
@@ -38,7 +38,7 @@ function whoamiAuthenticated() {
         headers: {
             "Authorization": "Basic " + encoding.b64encode(`${clientId}:${clientSecret}`)
         }
-    };
+    }
 
     // test url call.
     let res = http.get(url, options);
@@ -46,5 +46,5 @@ function whoamiAuthenticated() {
     check(res, {
         "status is 200": (r) => r.status === 200,
         "has JWT Bearer Token": (r) => r.body.match("Authorization: Bearer ([a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+?\\.[a-zA-Z0-9\\-_]+)")
-    });
+    })
 }
