@@ -1,45 +1,37 @@
 if: tag IS blank
 language: node_js
 node_js:
-  - "stable"
+- stable
 cache:
   directories:
-    - "node_modules"
+  - node_modules
 services:
-  - docker
+- docker
 before_script:
-  - export TRAVIS_TAG=$(git rev-parse --short ${TRAVIS_COMMIT})
-  - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-  - export COMMIT_TIME=$(git log -1 --pretty=format:%ct|date +"%m%d%Y-%H%M")
-  - export APP_VERSION=$COMMIT_TIME-$TRAVIS_TAG
-  - echo "$TRAVIS_TAG $TRAVIS_COMMIT $BRANCH $COMMIT_TIME"
+- export TRAVIS_TAG=$(git rev-parse --short ${TRAVIS_COMMIT})
+- export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+- export COMMIT_TIME=$(git log -1 --pretty=format:%ct|date +"%m%d%Y-%H%M")
+- export APP_VERSION=$COMMIT_TIME-$TRAVIS_TAG
+- echo "$TRAVIS_TAG $TRAVIS_COMMIT $BRANCH $COMMIT_TIME"
 script:
-  - npm run bundle
+- npm run bundle
 after_success:
-  - docker build -t dniel/forwardauth-test .
+- docker build -t dniel/forwardauth-test .
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: "./.travis/deploy_release.sh"
-    on:
-      branch: master
-  - provider: script
-    skip_cleanup: true
-    script: "./.travis/deploy_feature.sh"
-    on:
-      all_branches: true
-      if: $BRANCH != "master"
+- provider: script
+  skip_cleanup: true
+  script: "./.travis/deploy_release.sh"
+  on:
+    branch: master
+- provider: script
+  skip_cleanup: true
+  script: "./.travis/deploy_feature.sh"
+  on:
+    all_branches: true
+    if: $BRANCH != "master"
 notifications:
   slack:
-    rooms:
-      secure: cNyWxVxmQCu+yJr+o4fFiVVMUaPgMqm6YujcX3R1lVjtQyEgtzvz5g9dCZY+473EQC8AKFz5HYrZQoReBDq3icMIGAZ9vJp/Q/zryNhpKV95WyuQY1rSrD+WMv/fNLv8yf5VrYY8tqPGUnUm2K0F8aAZgG6O3u+f7+5hl/+GlUO3JyC36BX725J9wKaLJJfEoyYvHK9AVP9BJQs2SlwHxUQOd2nOYl7bVqW1BjXTXHYbo1IlnN7iN+GZ35v16LnlkgiB2hcads0/tR19AtXsFjaRH7eJklqcSEeVfMfF01Zp/2UbJI4pSyLi1zjf5xa8v6/E029jVS7Ho4/0WnVBi/hKGaKA472T/I5ueVxlvNFjc/GxVB+dI87esWrbYXQ0Leiia3h1ovmIx9+OR/VEsh9GTh6H7kzWwjm4MrqGg0NOxBeccWjUsOLaTS3LVxyPcU7l07MrKe+Y6B/Igsls4xCvIRr9Bf6E0GZ/k1iKX6FK8AvXFMqzi8McKb7Sfv6QcpgnlhePmFvCKuHGWr77ZSnGmh18cZY3IYR/v32DzKmHLijL5KA9PVNdkFrcEn8RLTZqI3uxMNCXq37NlMW2ZEcxhyF+JL38HWIWOjh2rzpLHUls2vxixfbTvYaAEhB4en01OGX6+N46uQTU3/nvSJgm7f4UQo3orCcdFJ/Ql7U=
-    on_success: always
-    on_failure: always
-    template:
-      - Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>)
-        for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`.
-      - 'Execution time: *%{duration}*'
-      - 'Message: %{message}'
+    secure: FImphbcFPyYHOJu2rx8P9g2aiOy83U7wU8LKFaB/8RlFsY9wbl4F21Ohqrv7xgPoIcy9dTCbZQBopaAHo/shUWAOdUkQ5VC7TaIslKgo1CaW1gxPUiVJdbOXAmuObyQQAZU7E0xMdBxhGRVTaqRzmzG6Wjt0uQlAsIDomoMLx0oFbHgXekAMpldEg6bDFXISnBFhESZGlcZoeXLPBV/Ve4yGGvqK6ZGkmyANzQQSB5+/Mvyv5db+M/Fnd5zalZWoZ0SLAP+2bok6chOLeoJY5O+cEHeMxnoE2uvhza7kz1lrL8oMirEltlFv7J6+FVX5j2tOFPVbsmfT3pWv3jverNtFC6SVlkiiaNqwmitk14Q/+f4XDTECM3icX6UWd8ZC+2NMggmUBkNCkFSpZGgWPSxo2YcuPiegZjphkZlVdaWWb6/5ptgRXvj1KymiUUVh54CNxMmKPnsKiYMjxm+Ru6M2FFd+cafVOOn2Fto0OblbVHkdLBwueOz6Jv1nZmnod7zXVnL0dMp/mobeAMwbDY/DBeKsRIcFPuif6B4F1bA/efa06pfAXEBCH7hYUCAl2pG/Iqm2RK0BnxNCeVI4P9JgntN22fkmEm+DpqOuQ2pndXunZ4YbrgjF6JzRM+abeY8pRW1FoPVY/c8ewZzu7dUM5vozrqhblNtm9p9gkh0=
 env:
   global:
     secure: iHN7Ig4AZkNk/nNMSlpGoMFDCGNQJ74rbEzWT1p+AKQLQnxeadXDG6SMIaOcZtcM74C6lHg8R26j1dMVf1hHfazEThUhFpV6QIewGMHVzUHNov/pwpjEV9nObBD/0c6jgi0eKim5ImWZwiUpIrp9Gd7KhnQz9o75nT+cRAf/Gt/K6WJGZ3Uo5o3Ltld/3csfBv/eUtIO9VAgPwdkxSrgkZr2SwdplpspuApGlqNtHfHK3rCdhtGyS+HRfslgIG+DRYwheAEfXwXlcksAKDzL4A5aRNg5/hrMQ8hP94vJCMzu8f7ZpiJLnYtzbh8v4AG9d1GzFg1lCBG7z5hbhXfjevqQ1VkaMISlakUQCfa5vWNiG4ydEplipn4ca9DTbagmKqi6yaOZGw51ipA7BiNo7g2zJRYTPPlWjei0REj8ijqicmiQrrvnIcLRjqGh+WJZ5Yne5wOCs6gR//xW+a8WWz8tbTqd/UoGfYeHIEe33XPitKiAbvhxdQzKMNu61sGbllKUC7Of7GKP+Mx8W5s+4QQZHR8H0GJqwr0LGHx4t5qUATHhAGdJQZLivFOXOxbnSmqgG3dhRbnEMHYEWixHH+QU5dqn1BCNWS7Lv8m1/C+1ZA6HFmScNzQwcqu7EWBpxnOoMWx292Sbj8jG8S1QEuAOSVR8H8yrK5RgV5XRr1c=
