@@ -4,7 +4,7 @@
   "description": "integration tests with K6 for forwardauth",
   "main": "./src/main.js",
   "devDependencies": {
-    "core-js": "3.6.5",
+    "core-js": "3.38.1",
     "moment": "2.27.0",
     "@babel/core": "7.10.2",
     "@babel/preset-env": "7.10.2",
