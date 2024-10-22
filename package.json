@@ -6,8 +6,8 @@
   "devDependencies": {
     "core-js": "3.6.5",
     "moment": "2.27.0",
-    "@babel/core": "7.10.2",
-    "@babel/preset-env": "7.10.2",
+    "@babel/core": "7.25.9",
+    "@babel/preset-env": "7.25.9",
     "babel-loader": "8.1.0",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.11"
